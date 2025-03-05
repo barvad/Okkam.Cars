@@ -11,12 +11,11 @@ EXPOSE 8081
 # Этот этап используется для сборки проекта службы
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
-WORKDIR /src
-COPY ["Okkam.Cars.WebApi/Okkam.Cars.WebApi.csproj", "Okkam.Cars.WebApi/"]
-COPY ["Okkam.Cars.Ef/Okkam.Cars.Ef.csproj", "Okkam.Cars.Ef/"]
-RUN dotnet restore "./Okkam.Cars.WebApi/Okkam.Cars.WebApi.csproj"
+WORKDIR /source
 COPY . .
-WORKDIR "/src/Okkam.Cars.WebApi"
+RUN dotnet restore "./src/Okkam.Cars.WebApi/Okkam.Cars.WebApi.csproj"
+
+WORKDIR "/source/src/Okkam.Cars.WebApi"
 RUN dotnet build "./Okkam.Cars.WebApi.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 # Этот этап используется для публикации проекта службы, который будет скопирован на последний этап

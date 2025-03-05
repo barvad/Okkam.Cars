@@ -1,0 +1,6 @@
+services:
+  okkam.cars.webapi:
+    image: ${DOCKER_REGISTRY-}okkamcarswebapi
+    build:
+      context: ..
+      dockerfile: src/Okkam.Cars.WebApi/Dockerfile
